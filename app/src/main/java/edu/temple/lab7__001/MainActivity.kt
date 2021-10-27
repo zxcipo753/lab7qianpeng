@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("bookTag", d.toString())
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
-                .replace(R.id.FragContainer1, SelectionFragment.newInstance(booksName,booksAuthor))
+                .replace(R.id.FragContainer1, BookDetailsFragment.newInstance(booksName,booksAuthor))
                 .commit()
 
     }

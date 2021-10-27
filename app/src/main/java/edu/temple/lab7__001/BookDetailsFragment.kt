@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 private const val ARG_PARAM1 = "bookDescription"
 private const val ARG_PARAM2 = "bookImage"
 
-class SelectionFragment : Fragment() {
+class BookDetailsFragment : Fragment() {
     private var param1: Array<String>? = null
     private var param2: Array<String>? = null
     private lateinit var displayFragment: DisplayFragment
@@ -70,7 +70,7 @@ class SelectionFragment : Fragment() {
     }
     companion object {
         fun newInstance(param1: Array<String>, param2: Array<String>) =
-            SelectionFragment().apply {
+            BookDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putStringArray(ARG_PARAM1,param1)
                     putStringArray(ARG_PARAM2, param2)
