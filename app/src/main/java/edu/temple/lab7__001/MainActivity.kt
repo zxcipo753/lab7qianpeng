@@ -16,3 +16,15 @@ class MainActivity : AppCompatActivity() {
         for(i in booksAuthor.indices){
             booksList.add(Book(booksName[i],booksAuthor[i]))
         }
+
+        val d=this.resources.displayMetrics.densityDpi
+        Log.d("bookTag", d.toString())
+        if (savedInstanceState == null)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.FragContainer1, SelectionFragment.newInstance(booksName,booksAuthor))
+                .commit()
+
+    }
+
+
+}
