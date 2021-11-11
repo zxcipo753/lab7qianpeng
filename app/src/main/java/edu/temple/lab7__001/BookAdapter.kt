@@ -14,6 +14,7 @@ class BookAdapter(private val listBooks: BookList):RecyclerView.Adapter<BookAdap
     fun setOnItemClickListener(listener: OnItemClickListener){
         myListener = listener
     }
+    //
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookAdapter.ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
