@@ -1,39 +1,62 @@
 package edu.temple.lab7__001
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
+lateinit var items:BookList
+class BookListFragment : Fragment() {
+    private lateinit var layout:View
+    private lateinit var recyclerView:RecyclerView
+    private lateinit var viewModel:SharedViewModel
 
-class DisplayFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?){
-        super .onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activity.let{
+            viewModel = ViewModelProvider(it!!).get(SharedViewModel::class.java)
+        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_display,container,false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        layout = inflater.inflate(R.layout.fragment_book_list, container, false)
+        recyclerView = layout.findViewById(R.id.fragmentRecyclerView)
+        recyclerView.adapter = BookListAdapter(items, onClickListener)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        return layout
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val model= ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+    val onClickListener = View.OnClickListener {
+        //grab the book that was clicked
+        val itemPosition = recyclerView.getChildAdapterPosition(it)
+        val book = items.get(itemPosition)
 
+        Log.d("Fragment1", "${book.title}")
+        //place book in viewModel
+        viewModel.setBook(book)
 
-        val titleView = view.findViewById<TextView>(R.id.frgTitleView)
-        val authorView = view.findViewById<TextView>(R.id.frgAuthorView)
-        titleView.text = "Example Text"
-        model.setTitle.observe(
-            viewLifecycleOwner,
-            { o -> titleView.text = o!!.toString() }
-        )
-        model.setAuthor.observe(
-            viewLifecycleOwner,
-            { o -> authorView.text = o!!.toString() }
-        )
+        (activity as EventInterface).selectionMade()
     }
+
+    companion object {
+        fun newInstance(_items:BookList) =
+            BookListFragment().apply {
+                items = _items
+            }
+
+    }
+
+    interface EventInterface{
+        fun selectionMade()
+    }
+
 
 }

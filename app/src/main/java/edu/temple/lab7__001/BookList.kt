@@ -1,29 +1,23 @@
 package edu.temple.lab7__001
+import java.io.Serializable
 
-class BookList(){
-
-    val booklist= mutableListOf<Book>()
-
-    fun add(b:Book){
-        booklist.add(b)
-    }
-    fun remove(b:Book){
-        booklist.remove(b)
-    }
-    fun get(index:Int): Book {
-        return  booklist[(index)]
-    }
-    fun size():Int{
-        return booklist.size
+object BookList : Serializable{
+    private val bookList : MutableList<Book> by lazy {
+        ArrayList()
     }
 
-    //Override toString()
-    override fun toString():String{
-        var output = ""
-        for(index in booklist.indices){
-            output += index.toString()
-        }
-        return output
+    fun add(book: Book) {
+        bookList.add(book)
     }
+
+    fun remove(book: Book){
+        bookList.remove(book)
+    }
+
+    operator fun get(index: Int) = bookList[index]
+
+    fun size() = bookList.size
+
+
 
 }
