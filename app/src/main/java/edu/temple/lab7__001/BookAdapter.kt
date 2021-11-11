@@ -16,6 +16,7 @@ class BookListAdapter(_items:BookList, _ocl:View.OnClickListener):RecyclerView.A
         val authorTextView:TextView = _view.findViewById(R.id.authorTextView)
         val view =_view.apply{setOnClickListener(ocl)}
         lateinit var book:Book
+        private var currentBook: Book? = null
 
     }
 
@@ -23,10 +24,6 @@ class BookListAdapter(_items:BookList, _ocl:View.OnClickListener):RecyclerView.A
         var v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
         var vh = ViewHolder(v, ocl)
         return vh
-        return BookViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.library_item, parent, false),
-            onClick
-        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

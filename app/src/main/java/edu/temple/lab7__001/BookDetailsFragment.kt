@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import android.widget.TextView
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
 
 
 class BookDetailsFragment : Fragment() {
@@ -40,11 +39,10 @@ class BookDetailsFragment : Fragment() {
         viewModel.getSelectedBook().observe(requireActivity(), {updateBook(it)})
     }
 
-    private fun updateBook(book:BookModel?){
+    private fun updateBook(book:Book?){
         book?.run {
             bookTitle.text = title
             bookAuthor.text = author
-            Picasso.get().load(cover_url).into(bookCover)
         }
     }
 }
