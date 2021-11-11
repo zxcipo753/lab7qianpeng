@@ -14,6 +14,16 @@ object BookList : Serializable{
         bookList.remove(book)
     }
 
+    fun clear(){
+        bookList.clear()
+    }
+
+    fun addLibrary(library: List<Book>){
+        for(book in library){
+            add(book)
+        }
+    }
+
     operator fun get(index: Int) = bookList[index]
 
     fun size() = bookList.size

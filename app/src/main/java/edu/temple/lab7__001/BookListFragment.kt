@@ -10,53 +10,42 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.activityViewModels
 
-lateinit var items:BookList
+
+private const val BOOKS = "BOOKS"
 class BookListFragment : Fragment() {
-    private lateinit var layout:View
-    private lateinit var recyclerView:RecyclerView
-    private lateinit var viewModel:SharedViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val viewModel: BookViewModel by activityViewModels()
 
-        activity.let{
-            viewModel = ViewModelProvider(it!!).get(SharedViewModel::class.java)
+    interface BookSelectedInterface {
+        fun bookSelected()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return inflater.inflate(R.layout.book_list_fragment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val onClick : (Book) -> Unit = {
+            //Updating view model on book selection
+                book: Book -> viewModel.setSelectedBook(book)
+            //Informing activity to prevent replay of event when it restarts
+            (activity as BookSelectedInterface).bookSelected()
         }
-    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        layout = inflater.inflate(R.layout.fragment_book_list, container, false)
-        recyclerView = layout.findViewById(R.id.fragmentRecyclerView)
-        recyclerView.adapter = BookListAdapter(items, onClickListener)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val manager = LinearLayoutManager(activity)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
 
-        return layout
-    }
+        recyclerView?.layoutManager = manager
 
-    val onClickListener = View.OnClickListener {
-        //grab the book that was clicked
-        val itemPosition = recyclerView.getChildAdapterPosition(it)
-        val book = items.get(itemPosition)
-
-        Log.d("Fragment1", "${book.title}")
-        //place book in viewModel
-        viewModel.setBook(book)
-
-        (activity as EventInterface).selectionMade()
-    }
-
-    companion object {
-        fun newInstance(_items:BookList) =
-            BookListFragment().apply {
-                items = _items
-            }
+        recyclerView?.adapter = BookListAdapter(BookList, onClick)
 
     }
-
-    interface EventInterface{
-        fun selectionMade()
-    }
-
-
 }

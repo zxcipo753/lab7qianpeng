@@ -10,7 +10,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import android.widget.TextView
 import android.widget.ImageView
-
+import androidx.fragment.app.activityViewModels
+import com.squareup.picasso.Picasso
 
 class BookDetailsFragment : Fragment() {
 
@@ -24,11 +25,11 @@ class BookDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_book_details, container, false)
+        val view = inflater.inflate(R.layout.book_list_fragment, container, false)
 
         bookTitle = view.findViewById(R.id.titleTextView2)
         bookAuthor = view.findViewById(R.id.authorTextView2)
-        bookCover = view.findViewById(R.id.bookCoverImageView)
+        //bookCover = view.findViewById(R.id.bookCoverImageView)
 
         return view
     }
@@ -43,6 +44,7 @@ class BookDetailsFragment : Fragment() {
         book?.run {
             bookTitle.text = title
             bookAuthor.text = author
+            Picasso.get().load(coverURL).into(bookCover)
         }
     }
 }
