@@ -1,6 +1,5 @@
 package edu.temple.lab7__001
 
-
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View

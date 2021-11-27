@@ -1,5 +1,3 @@
-
-
 package edu.temple.lab7__001
 
 import android.os.Bundle
