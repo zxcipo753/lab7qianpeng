@@ -4,25 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookSearchActivity">
+    tools:context=".SearchActivity">
 
     <Button
         android:id="@+id/mainSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search"
+        android:layout_marginTop="10dp"
+        android:text="Confirm"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
 
     <EditText
         android:id="@+id/searchEditText"
-        android:layout_width="256dp"
-        android:layout_height="80dp"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
         android:layout_marginTop="48dp"
         android:ems="10"
-        android:hint="@string/search"
+        android:hint="Enter letters to search"
         android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

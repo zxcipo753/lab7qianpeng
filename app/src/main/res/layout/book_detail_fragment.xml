@@ -23,7 +23,7 @@
         android:layout_width="395dp"
         android:layout_height="68dp"
         android:gravity="center"
-        android:textColor="#000000"
+        android:textColor="@color/purple_200"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,8 +31,9 @@
 
     <ImageView
         android:id="@+id/coverImageView"
-        android:layout_width="251dp"
-        android:layout_height="345dp"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/detailBookTitle"
         app:layout_constraintEnd_toEndOf="parent"

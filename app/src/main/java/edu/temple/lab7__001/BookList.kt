@@ -24,15 +24,10 @@ class BookList : ViewModel(), Serializable{
         bookList.remove(book)
     }
 
-    fun clear(){
-        bookList.clear()
-    }
-
     fun addBooks (newBookList: BookList){
         bookList.clear()
         bookList.addAll(newBookList.bookList)
     }
-
 
     operator fun get(index: Int) = bookList.get(index)
 
