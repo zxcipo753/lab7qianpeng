@@ -154,7 +154,4 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
         controlBinder.stop()
     }
 
-    override fun seekBarClick() {
-        TODO("Not yet implemented")
-    }
 }
