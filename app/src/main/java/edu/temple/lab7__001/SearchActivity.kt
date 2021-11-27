@@ -1,84 +1,71 @@
-package edu.temple.lab7__001
+package edu.temple.audiobb
 
-import android.Manifest
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import com.android.volley.RequestQueue
+import com.android.volley.Request
+import com.android.volley.toolbox.Volley
+import com.android.volley.toolbox.JsonArrayRequest
+import org.json.JSONException
 
-class BookSearchActivity : AppCompatActivity() {
-    private lateinit var searchField:EditText
-    private lateinit var searchButton: Button
-    private lateinit var closeButton: Button
-    private val client = OkHttpClient()
+
+class SearchActivity : AppCompatActivity() {
+    var bookList = BookList()
+
+    val volleyQueue : RequestQueue by lazy {
+        Volley.newRequestQueue(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
-        setContentView(R.layout.search_activity)
-        this.setFinishOnTouchOutside(false)
+        setContentView(R.layout.activity_book_search)
 
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.INTERNET
-            ), 1
-        )
-
-
-        searchField = findViewById(R.id.searchBar)
-        searchButton = findViewById(R.id.searchButton)
-        closeButton = findViewById(R.id.closeButton)
+        val searchEditText = findViewById<EditText>(R.id.searchEditText)
+        val searchButton = findViewById<Button>(R.id.mainSearchButton)
 
         searchButton.setOnClickListener {
-            val response = httpRequest("https://kamorris.com/lab/cis3515/search.php?term=${searchField.text}")
-            val moshi = Moshi.Builder().build()
-            val listType = Types.newParameterizedType(List::class.java, Book::class.java)
-            val adapter: JsonAdapter<List<Book>> = moshi.adapter(listType)
-            val library: List<Book>? = adapter.fromJson(response?.body?.source()!!)
-
-            if (library != null) {
-                BookList.clear()
-                BookList.addLibrary(library)
-            }
-
-            Toast.makeText(this, BookList.size().toString(), Toast.LENGTH_SHORT).show()
+            fetchBook(searchEditText.text.toString())
         }
-
-        closeButton.setOnClickListener{
-            val i = Intent()
-            setResult(RESULT_OK, i)
-            this.finish()
-        }
-
-
     }
 
-    private fun httpRequest(url: String): Response? {
-        val request = Request.Builder()
-            .url(url)
-            .build()
+    private fun fetchBook(bookSearch : String){
+        val url = "https://kamorris.com/lab/cis3515/search.php?term=$bookSearch"
 
-        var response: Response? = null
+        volleyQueue.add(
+            JsonArrayRequest(
+                Request.Method.GET, url, null,
+                {
+                    Log.d("Response", it.toString())
+                    try{
+                        for(i in 0 until it.length()){
+                            val jsonObject = it.getJSONObject(i)
+                            val book = Book(jsonObject.getInt("id"),
+                                jsonObject.getString("title"),
+                                jsonObject.getString("author"),
+                                jsonObject.getString("cover_url"),
+                                jsonObject.getInt("duration"))
+                            bookList.add(book)
+                        }
+                        setResult(RESULT_OK, Intent().putExtra(BookList.BOOKLIST_KEY, bookList)
+                        )
+                        finish()
+                    }
+                    catch (e : JSONException){
+                        e.printStackTrace()
+                        finish()
+                    }
 
-        runBlocking(Dispatchers.IO) {
-            response = client.newCall(request).execute()
-        }
 
-        return response
+                },{
+                    Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
+                })
+        )
+
     }
 
 }
