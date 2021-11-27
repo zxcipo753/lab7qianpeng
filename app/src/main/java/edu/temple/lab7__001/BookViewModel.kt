@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 
 class BookViewModel : ViewModel() {
 
-
     private val book : MutableLiveData<Book> by lazy {
         MutableLiveData<Book>()
     }

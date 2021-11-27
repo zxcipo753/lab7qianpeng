@@ -55,7 +55,7 @@ class BookListFragment : Fragment() {
         fun doSearch()
     }
 
-    fun bookListUpdate(){
+    fun UpdateList(){
         view?.apply{
             (this as RecyclerView).adapter?.notifyDataSetChanged()
         }

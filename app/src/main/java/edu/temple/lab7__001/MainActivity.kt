@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import edu.temple.audlibplayer.PlayerService
 
 
-class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookListFragment.Search, AudioButton.ControlClick{
+class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookListFragment.Search, AudioButton.ControlButtons{
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     var connection = false
     private lateinit var bookListFragment: BookListFragment
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
         supportFragmentManager.popBackStack()
         it.data?.run{
             bookViewModel.addBooks(getSerializableExtra(BookList.BOOKLIST_KEY) as BookList)
-            bookListFragment.bookListUpdate()
+            bookListFragment.UpdateList()
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -24,7 +24,6 @@ class BookAdapter(_books: BookList, _onClick: (Book) -> Unit) : RecyclerView.Ada
                 onClick(book)
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookAdapter.BookViewHolder {
@@ -38,7 +37,6 @@ class BookAdapter(_books: BookList, _onClick: (Book) -> Unit) : RecyclerView.Ada
     }
 
     override fun getItemCount(): Int {
-        //**
         return books.size()
     }
 }

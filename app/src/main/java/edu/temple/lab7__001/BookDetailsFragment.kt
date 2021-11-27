@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso
 class BookDetailsFragment : Fragment() {
 
     lateinit var layout: View
-    lateinit var bookName: TextView
+    lateinit var bookTitle: TextView
     lateinit var bookAuthor : TextView
     lateinit var bookImage : ImageView
 
@@ -33,7 +33,7 @@ class BookDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bookName = view.findViewById(R.id.detailBookTitle)
+        bookTitle = view.findViewById(R.id.detailBookTitle)
         bookAuthor = view.findViewById(R.id.detailBookAuthor)
         bookImage = view.findViewById(R.id.coverImageView)
 
@@ -47,7 +47,7 @@ class BookDetailsFragment : Fragment() {
         val book = ViewModelProvider(requireActivity())
             .get(BookViewModel::class.java)
             .getBook()
-        bookName.text = book.value?.title
+        bookTitle.text = book.value?.title
         bookAuthor.text = book.value?.author
         Picasso.get()
             .load(book.value?.cover_url)
