@@ -1,9 +1,19 @@
 package edu.temple.lab7__001
+
+import androidx.lifecycle.ViewModel
 import java.io.Serializable
 
-object BookList : Serializable{
-    private val bookList : MutableList<Book> by lazy {
+class BookList : ViewModel(), Serializable{
+    companion object {
+        val BOOKLIST_KEY = "bookList"
+    }
+
+    private val bookList : ArrayList<Book> by lazy {
         ArrayList()
+    }
+
+    fun getBook(int: Int) : Book{
+        return bookList[int]
     }
 
     fun add(book: Book) {
@@ -18,16 +28,14 @@ object BookList : Serializable{
         bookList.clear()
     }
 
-    fun addLibrary(library: List<Book>){
-        for(book in library){
-            add(book)
-        }
+    fun addBooks (newBookList: BookList){
+        bookList.clear()
+        bookList.addAll(newBookList.bookList)
     }
 
-    operator fun get(index: Int) = bookList[index]
+
+    operator fun get(index: Int) = bookList.get(index)
 
     fun size() = bookList.size
-
-
 
 }
