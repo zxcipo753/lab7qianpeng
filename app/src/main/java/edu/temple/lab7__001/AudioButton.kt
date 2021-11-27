@@ -26,7 +26,7 @@ class AudioButton : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val layout = inflater.inflate(R.layout.fragment_control, container, false)
+        val layout = inflater.inflate(R.layout.fragment_audio, container, false)
 
         playButton = layout.findViewById(R.id.playButton)
         pauseButton = layout.findViewById(R.id.pauseButton)
@@ -46,7 +46,7 @@ class AudioButton : Fragment() {
             val selectedBook = bookViewModel.getBook().value
 
             if(selectedBook != null){
-                titleText.text = "NOW PLAYING: " + selectedBook.title
+                titleText.text = "Now playing -- " + selectedBook.title
                 durationBar.max = selectedBook.duration
             }
             (activity as ControlClick).playClick(durationInt)

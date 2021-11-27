@@ -19,7 +19,7 @@ import edu.temple.audlibplayer.PlayerService
 import org.w3c.dom.Text
 
 
-class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookListFragment.Search, ControlFragment.ControlClick{
+class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookListFragment.Search, AudioButton.ControlClick{
 
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     var connection = false
@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
             supportFragmentManager.popBackStack()
         }
 
-        // If this is the first time the activity is loading, go ahead and add a BookListFragment
         if (savedInstanceState == null) {
             bookListFragment = BookListFragment()
             supportFragmentManager.beginTransaction()
@@ -90,8 +89,6 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
                 .commit()
         } else {
             bookListFragment = supportFragmentManager.findFragmentByTag(BOOKLISTFRAGMENT_KEY) as BookListFragment
-            // If activity loaded previously, there's already a BookListFragment
-            // If we have a single container and a selected book, place it on top
             if (isSingleContainer && selectedBookView.getBook().value != null) {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView1, BookDetailsFragment())
@@ -108,7 +105,7 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
                 .commit()
 
         findViewById<Button>(R.id.mainSearchButton).setOnClickListener {
-            searchRequest.launch(Intent(this, BookSearchActivity::class.java))
+            searchRequest.launch(Intent(this, SearchActivity::class.java))
         }
 
     }
