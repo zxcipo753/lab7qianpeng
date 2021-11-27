@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction().add(R.id.controlContainer, ControlFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.controlContainer, AudioButton()).commit()
         bindService(Intent(this, PlayerService::class.java), serviceConnection, BIND_AUTO_CREATE)
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainerView1) is BookDetailsFragment
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
             }
         }
 
-        // If we have two containers but no BookDetailsFragment, add one to container2
+
         if (!isSingleContainer && supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) !is BookDetailsFragment)
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragmentContainerView2, BookDetailsFragment())
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookL
 
 
     override fun doSearch(){
-        startForResult.launch(Intent(this, BookSearchActivity::class.java))
+        startForResult.launch(Intent(this, SearchActivity::class.java))
     }
 
     override fun playClick(durationTime: Int) {
