@@ -10,42 +10,57 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.fragment.app.activityViewModels
 
 
-private const val BOOKS = "BOOKS"
 class BookListFragment : Fragment() {
-
-    private val viewModel: BookViewModel by activityViewModels()
-
-    interface BookSelectedInterface {
-        fun bookSelected()
+    private val bookList: BookList by lazy{
+        ViewModelProvider(requireActivity()).get(BookList::class.java)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.book_list_fragment, container, false)
+    ): View? {
+        return inflater.inflate(R.layout.fragment_book_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val onClick : (Book) -> Unit = {
-            //Updating view model on book selection
-                book: Book -> viewModel.setSelectedBook(book)
-            //Informing activity to prevent replay of event when it restarts
-            (activity as BookSelectedInterface).bookSelected()
+        val bookViewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+        val onClick : (Book) -> Unit ={
+                book: Book -> bookViewModel.setBook(book)
+            (activity as EventInterface).selectionMade(book)
+        }
+        with (view as RecyclerView){
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = BookListAdapter(bookList, onClick)
         }
 
-        val manager = LinearLayoutManager(activity)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-
-        recyclerView?.layoutManager = manager
-
-        recyclerView?.adapter = BookListAdapter(BookList, onClick)
-
     }
+
+    companion object {
+        fun newInstance(_bookList: BookList): BookListFragment {
+            val frag = BookListFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable("bookList", _bookList)
+                }
+            }
+            return frag
+        }
+    }
+
+    interface EventInterface{
+        fun selectionMade(book: Book)
+    }
+    interface Search{
+        fun doSearch()
+    }
+
+    fun bookListUpdate(){
+        view?.apply{
+            (this as RecyclerView).adapter?.notifyDataSetChanged()
+        }
+    }
+
+
 }

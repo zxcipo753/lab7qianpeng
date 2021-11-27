@@ -1,27 +1,6 @@
 <resources>
-    <string name="app_name">lab7--001</string>
-    <string-array name="book_titles">
-        <item>Apology of Socrates</item>
-        <item>Nicomachean Ethics</item>
-        <item>The discourse on method</item>
-        <item>Candide or Optimism</item>
-        <item>Beyond good and evil</item>>
-        <item>Crime and Punishment</item>
-        <item>The Unbearable Lightness of Being</item>
-        <item>Existentialism and Humanism</item>
-        <item>The Fall by Camus</item>
-        <item>The Philosophy of The Simpsons</item>
-    </string-array>
-    <string-array name="authors">
-        <item>Plato</item>
-        <item>Aristotle</item>
-        <item>Descartes</item>
-        <item>Voltaire</item>
-        <item>Nietzsche</item>>
-        <item>Dostoyevsky</item>
-        <item>Kundera</item>
-        <item>Sartre</item>
-        <item>Camus</item>
-        <item>Irwin</item>
-    </string-array>
+    <string name="app_name">AudioBB</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_prompt">Please Choose a Book</string>
 </resources>
