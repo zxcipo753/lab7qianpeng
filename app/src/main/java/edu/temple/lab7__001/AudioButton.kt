@@ -25,7 +25,6 @@ class AudioButton : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val layout = inflater.inflate(R.layout.fragment_audio, container, false)
 
         playButton = layout.findViewById(R.id.playButton)
@@ -90,7 +89,7 @@ class AudioButton : Fragment() {
         fun playClick(durationTime: Int)
         fun pauseClick()
         fun stopClick()
-        fun seekBarClick()
+        
     }
 
 }

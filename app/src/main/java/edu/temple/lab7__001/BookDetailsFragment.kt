@@ -26,7 +26,7 @@ class BookDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        layout = inflater.inflate(R.layout.fragment_book_details, container, false)
+        layout = inflater.inflate(R.layout.book_detail_fragment, container, false)
         return layout
     }
 

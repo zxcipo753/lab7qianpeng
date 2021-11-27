@@ -21,7 +21,7 @@ class BookListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_book_list, container, false)
+        return inflater.inflate(R.layout.book_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,9 +33,8 @@ class BookListFragment : Fragment() {
         }
         with (view as RecyclerView){
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = BookListAdapter(bookList, onClick)
+            adapter = BookAdapter(bookList, onClick)
         }
-
     }
 
     companion object {

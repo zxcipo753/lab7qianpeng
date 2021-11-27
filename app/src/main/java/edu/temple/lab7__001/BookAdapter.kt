@@ -28,7 +28,7 @@ class BookAdapter(_books: BookList, _onClick: (Book) -> Unit) : RecyclerView.Ada
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookAdapter.BookViewHolder {
-        return BookViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.bookrecycler, parent, false), onClick)
+        return BookViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recycler_books, parent, false), onClick)
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {

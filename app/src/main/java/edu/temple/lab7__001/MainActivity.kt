@@ -16,11 +16,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import edu.temple.audlibplayer.PlayerService
-import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity(), BookListFragment.EventInterface, BookListFragment.Search, AudioButton.ControlClick{
-
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     var connection = false
     private lateinit var bookListFragment: BookListFragment
