@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+
 
 
 class AudioButton : Fragment() {
@@ -16,9 +16,9 @@ class AudioButton : Fragment() {
     lateinit var playClick: Button
     lateinit var stopClick: Button
     lateinit var pauseClick: Button
-    lateinit var durationBar: SeekBar
+    var durationBar: SeekBar? = null
+    var titleText: TextView? = null
     lateinit var durationText: TextView
-    lateinit var titleText: TextView
     var durationInitial: Int = 0
 
     override fun onCreateView(
@@ -35,6 +35,7 @@ class AudioButton : Fragment() {
 
         return layout
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
